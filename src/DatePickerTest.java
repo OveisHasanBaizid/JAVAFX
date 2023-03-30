@@ -57,7 +57,7 @@ public class DatePickerTest extends Application {
                        super.updateItem(localDate, b);
                        if (localDate!=null && localDate.getMonth()== Month.MARCH && localDate.getDayOfMonth()==18){
                            setTooltip(new Tooltip("Happy birthday"));
-                            setStyle("-fx-background-color: Red");
+                            setStyle("-fx-background-color: #e70e0e");
                        }
                    }
                };
