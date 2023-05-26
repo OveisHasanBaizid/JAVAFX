@@ -1,40 +1,61 @@
 package UI;
 
 import javafx.application.Application;
-import javafx.geometry.Orientation;
-import javafx.geometry.Pos;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.event.EventType;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.TitledPane;
-import javafx.scene.layout.TilePane;
+import javafx.scene.input.*;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class Test extends Application {
     public static void main(String[] args) {
-       launch(args);
+        launch(args);
     }
 
     @Override
-    public void start(Stage stage) throws Exception {
-        Group group = new Group();
-        TilePane tilePane = new TilePane();
-        tilePane.setPrefRows(1);
-        tilePane.setPrefTileWidth(100);
-        tilePane.setPrefTileHeight(100);
-        tilePane.setTileAlignment(Pos.TOP_LEFT);
-        tilePane.getChildren().addAll( new Button("SunDay"),
-                new Button("MonDay"),
-                new Button("TuesDay"),
-                new Button("WendsDay"),
-                new Button("ThursDay"),
-                new Button("FriDay"),
-                new Button("Saturday"));
-        tilePane.setOrientation(Orientation.VERTICAL);
-        tilePane.setVgap(30);
-        group.getChildren().add(tilePane);
-        Scene scene = new Scene(group, 400, 400);
-        stage.setScene(scene);
-        stage.show();
+    public void start(Stage primaryStage) {
+        primaryStage.setTitle("Hello World");
+
+        VBox vBox = new VBox();
+
+
+        Button btn1 = new Button("Button1");
+
+
+//        btn1.setOnKeyTyped(new EventHandler<KeyEvent>() {
+//            @Override
+//            public void handle(KeyEvent keyEvent) {
+//                System.out.println(keyEvent.isShortcutDown());
+//            }
+//        });
+
+//        btn1.setOnKeyPressed(new EventHandler<KeyEvent>() {
+//            @Override
+//            public void handle(KeyEvent keyEvent) {
+//                System.out.println("Pressed");
+//            }
+//        });
+//        btn1.setOnKeyReleased(new EventHandler<KeyEvent>() {
+//            @Override
+//            public void handle(KeyEvent keyEvent) {
+//                System.out.println("Released");
+//            }
+//        });
+        btn1.setOnMouseDragExited(event -> {
+            System.out.println("Mouse dragged outside the button.");
+        });
+        btn1.setOnMouseDragEntered(event -> {
+
+        });
+        vBox.getChildren().addAll(btn1);
+        Scene scene = new Scene(vBox, 300, 250);
+
+
+        primaryStage.setScene(scene);
+        primaryStage.show();
     }
 }
