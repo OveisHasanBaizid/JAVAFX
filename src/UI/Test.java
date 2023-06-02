@@ -1,15 +1,16 @@
 package UI;
 
 import javafx.application.Application;
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.event.EventType;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.input.*;
-import javafx.scene.layout.VBox;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextArea;
+import javafx.scene.input.ScrollEvent;
 import javafx.stage.Stage;
+
+import java.io.FileNotFoundException;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class Test extends Application {
     public static void main(String[] args) {
@@ -17,44 +18,29 @@ public class Test extends Application {
     }
 
     @Override
-    public void start(Stage primaryStage) {
+    public void start(Stage primaryStage) throws FileNotFoundException {
         primaryStage.setTitle("Hello World");
+        ScrollPane scrollPane = new ScrollPane();
+        scrollPane.setMaxSize(800,800);
+        Group group = new Group();
+//        ImageView imageView = new ImageView(new Image(new FileInputStream("Images\\JavaPro.jpg")));
+//        imageView.setFitHeight(400);
+//        imageView.setFitWidth(800);
+        TextArea textArea = new TextArea();
+        textArea.setMaxSize(800,800);
 
-        VBox vBox = new VBox();
+        scrollPane.setHmax(100);
+        scrollPane.setVmax(100);
+        textArea.setOnScroll(new EventHandler<ScrollEvent>() {
 
-
-        Button btn1 = new Button("Button1");
-
-
-//        btn1.setOnKeyTyped(new EventHandler<KeyEvent>() {
-//            @Override
-//            public void handle(KeyEvent keyEvent) {
-//                System.out.println(keyEvent.isShortcutDown());
-//            }
-//        });
-
-//        btn1.setOnKeyPressed(new EventHandler<KeyEvent>() {
-//            @Override
-//            public void handle(KeyEvent keyEvent) {
-//                System.out.println("Pressed");
-//            }
-//        });
-//        btn1.setOnKeyReleased(new EventHandler<KeyEvent>() {
-//            @Override
-//            public void handle(KeyEvent keyEvent) {
-//                System.out.println("Released");
-//            }
-//        });
-        btn1.setOnMouseDragExited(event -> {
-            System.out.println("Mouse dragged outside the button.");
+            @Override
+            public void handle(ScrollEvent scrollEvent) {
+                System.out.println(scrollEvent.getEventType());
+            }
         });
-        btn1.setOnMouseDragEntered(event -> {
-
-        });
-        vBox.getChildren().addAll(btn1);
-        Scene scene = new Scene(vBox, 300, 250);
-
-
+        group.getChildren().add(textArea);
+        scrollPane.setContent(group);
+        Scene scene = new Scene(scrollPane, 150, 150);
         primaryStage.setScene(scene);
         primaryStage.show();
     }
