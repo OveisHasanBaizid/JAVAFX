@@ -5,12 +5,13 @@ import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextArea;
-import javafx.scene.input.ScrollEvent;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.TouchEvent;
 import javafx.stage.Stage;
 
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.util.concurrent.atomic.AtomicReference;
 
 public class Test extends Application {
     public static void main(String[] args) {
@@ -21,26 +22,22 @@ public class Test extends Application {
     public void start(Stage primaryStage) throws FileNotFoundException {
         primaryStage.setTitle("Hello World");
         ScrollPane scrollPane = new ScrollPane();
-        scrollPane.setMaxSize(800,800);
+        scrollPane.setMaxSize(800, 800);
         Group group = new Group();
-//        ImageView imageView = new ImageView(new Image(new FileInputStream("Images\\JavaPro.jpg")));
-//        imageView.setFitHeight(400);
-//        imageView.setFitWidth(800);
-        TextArea textArea = new TextArea();
-        textArea.setMaxSize(800,800);
+        ImageView imageView = new ImageView(new Image(new FileInputStream("Images\\JavaPro.jpg")));
+        imageView.setFitHeight(400);
+        imageView.setFitWidth(800);
 
         scrollPane.setHmax(100);
         scrollPane.setVmax(100);
-        textArea.setOnScroll(new EventHandler<ScrollEvent>() {
 
-            @Override
-            public void handle(ScrollEvent scrollEvent) {
-                System.out.println(scrollEvent.getEventType());
-            }
+        imageView.setOnTouchMoved(touchEvent -> {
+            System.out.println("Touch");
         });
-        group.getChildren().add(textArea);
+       
+        group.getChildren().add(imageView);
         scrollPane.setContent(group);
-        Scene scene = new Scene(scrollPane, 150, 150);
+        Scene scene = new Scene(scrollPane, 820, 420);
         primaryStage.setScene(scene);
         primaryStage.show();
     }
