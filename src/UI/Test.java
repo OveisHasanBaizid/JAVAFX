@@ -2,15 +2,14 @@ package UI;
 
 import javafx.application.Application;
 import javafx.event.EventHandler;
-import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.TouchEvent;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
 public class Test extends Application {
@@ -20,24 +19,40 @@ public class Test extends Application {
 
     @Override
     public void start(Stage primaryStage) throws FileNotFoundException {
-        primaryStage.setTitle("Hello World");
-        ScrollPane scrollPane = new ScrollPane();
-        scrollPane.setMaxSize(800, 800);
-        Group group = new Group();
-        ImageView imageView = new ImageView(new Image(new FileInputStream("Images\\JavaPro.jpg")));
-        imageView.setFitHeight(400);
-        imageView.setFitWidth(800);
+        VBox vBox = new VBox();
+        Label label = new Label("Label");
 
-        scrollPane.setHmax(100);
-        scrollPane.setVmax(100);
-
-        imageView.setOnTouchMoved(touchEvent -> {
-            System.out.println("Touch");
+        //Registering Event Filter for the event generated on text field
+        label.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                System.out.println("label");
+            }
         });
-       
-        group.getChildren().add(imageView);
-        scrollPane.setContent(group);
-        Scene scene = new Scene(scrollPane, 820, 420);
+
+        vBox.getChildren().addAll(label);
+        Scene scene = new Scene(vBox, 400, 400);
+
+        //Registering Event Filter for the event generated on text field
+        scene.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                System.out.println("Scene");
+            }
+        });
+        vBox.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                System.out.println("vBox");
+            }
+        });
+        primaryStage.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                System.out.println("Stage");
+            }
+        });
+
         primaryStage.setScene(scene);
         primaryStage.show();
     }
